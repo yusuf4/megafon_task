@@ -1,6 +1,6 @@
 <template>
     <div class="flex">
-       <div class="bg-red-400">
+       <div class="bg-red-400 mr-4">
            COL 1
        </div>
         <div class="text-blue-500 font-bold">

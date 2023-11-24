@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('lastname')->nullable(true);
-            $table->integer('is_admin')->default(0);
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->integer('invoice');
+            $table->string('phone')->nullable(true);
+            $table->boolean('status')->nullable(true);
+            $table->foreignId('user_id')->constrained('users')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('invoices');
     }
 };
