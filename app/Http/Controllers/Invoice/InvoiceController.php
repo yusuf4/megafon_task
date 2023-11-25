@@ -112,8 +112,12 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
         $item = Invoice::findOrFail($id);
-        $userID = $request->user_id['id'];
-        //dd($userID);
+        if(isset($request->user_id['id']))
+        {
+            $userID = $request->user_id['id'];
+        }else{
+            $userID=null;
+        }
         $item->update([
             'name'=> $request->name,
             'lastname'=> $request->lastname,
