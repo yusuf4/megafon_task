@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -15,19 +16,29 @@ class UserController extends Controller
         $users = User::query()
             ->select('id', 'name', 'lastname', 'is_admin', 'email')
             ->get();
+        if (Auth::check()){
+            $userRole= Auth::user()->is_admin;
+        };
         return Inertia::render('Users/Index', [
             'users'=>$users,
+            'userRole'=>$userRole,
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Users/Add');
+        if (Auth::check()){
+            $userRole= Auth::user()->is_admin;
+        };
+        return Inertia::render('Users/Add', [
+            'userRole'=>$userRole
+        ]);
     }
 
     public function store(Request $request)
     {
         //dd($request->is_admin);
+
         User::create([
             'name' => $request->name,
             'lastname' => $request->lastname,

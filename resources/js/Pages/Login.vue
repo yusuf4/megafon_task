@@ -5,17 +5,19 @@
                 Megafon Tajikistan
             </h1>
 
-            <form
-                action=""
+            <form @submit.prevent="form.post(route('login.auth'))"
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
             >
                 <p class="text-center text-lg font-medium">Войдте в свой аккаунт</p>
-
+                <div v-if="$page.props.flash.message" class="text-red-500 text-center">
+                    {{$page.props.flash.message}}
+                </div>
                 <div>
                     <label for="email" class="sr-only">Email</label>
 
                     <div class="relative">
                         <input
+                            v-model="form.email"
                             type="email"
                             class="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                             placeholder="Enter email"
@@ -46,6 +48,7 @@
 
                     <div class="relative">
                         <input
+                            v-model="form.password"
                             type="password"
                             class="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                             placeholder="Enter password"
@@ -78,7 +81,18 @@
 </template>
 
 <script>
+import {useForm} from "@inertiajs/inertia-vue3";
 export default {
-    name: "Login"
+    name: "Login",
+
+    setup(){
+        const form = useForm ({
+            email: null,
+            password: null,
+            _method: "POST"
+        });
+
+        return {form}
+    }
 }
 </script>

@@ -35,7 +35,7 @@
                         {{user.email}}
                     </td>
                     <td
-                        v-if="user.is_admin===0"
+
                         class="flex items-center px-6 py-4">
                         <Link
                             :href="route('user.edit', user.id)"

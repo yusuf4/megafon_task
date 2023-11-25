@@ -33,7 +33,9 @@
                 </Link>
             </li>
             <!-- Пользователи -->
-            <li class="mb-2 group">
+            <li
+                v-show="userRole==0"
+                class="mb-2 group">
                 <details class="group [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="group flex items-center justify-between rounded-lg px-4 py-2 text-gray-300 hover:bg-gray-100 hover:text-gray-700">
@@ -88,6 +90,14 @@
                 </details>
             </li>
         </ul>
+        <Link
+            :href="route('logoute')"
+            method="post"
+            as="button"
+            class="text-white text-lg font-semibold"
+            type="button">
+            Logout
+        </Link>
     </div>
 
     <!-- Main content -->
@@ -102,6 +112,9 @@
 import {Link} from "@inertiajs/inertia-vue3";
 export default {
     name: "Layout",
-    components:{Link}
+    components:{Link},
+    props:{
+        userRole:Number,
+    }
 }
 </script>

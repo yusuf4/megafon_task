@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('lastname')->nullable(true);
             $table->integer('invoice');
             $table->string('phone')->nullable(true);
-            $table->boolean('status')->nullable(true);
-            $table->foreignId('user_id')->constrained('users')
+            $table->boolean('status')->default(true);
+            $table->foreignId('user_id')->nullable(true)->constrained('users')
                 ->onUpdate('cascade');
             $table->timestamps();
         });
